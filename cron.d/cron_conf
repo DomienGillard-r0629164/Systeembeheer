@@ -1,2 +1,2 @@
 */15 * * * * root /etc/scripts/incron_config.sh
-0 0 * * * root rsync -a -e 'ssh -p 22345' /etc r0629164@leia.uclllabs.be:~/BACKUP/
+0 0 * * * root /etc/scripts/remote_backup.sh
