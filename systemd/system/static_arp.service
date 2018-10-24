@@ -5,7 +5,7 @@ After=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/etc/scripts/static_arp
+ExecStart=/etc/scripts/static_arp.sh
 
 [Install]
 WantedBy=multi-user.target
