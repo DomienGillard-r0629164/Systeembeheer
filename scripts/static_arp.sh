@@ -1,3 +1,4 @@
 #!/bin/bash
 
-arp -s $(route -n | awk '/^0.0.0.0/ {print $2}') \ $(arp -n | grep `route -n | awk '/^0.0.0.0/ {print $2}'`| awk '{print $3}')
+arp -s 193.191.177.254 ca:fe:c0:ff:ee:00
+
