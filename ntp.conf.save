@@ -1,4 +1,4 @@
-# /etc/ntp.conf, configuration for ntpd; see ntp.conf(5) for help
+ /etc/ntp.conf, configuration for ntpd; see ntp.conf(5) for help
 
 driftfile /var/lib/ntp/ntp.drift
 
@@ -13,6 +13,7 @@ filegen clockstats file clockstats type day enable
 
 # You do need to talk to an NTP server or two (or three).
 #server ntp.your-provider.example
+server be.pool.ntp.org
 
 # pool.ntp.org maps to about 1000 low-stratum NTP servers.  Your server will
 # pick a different set every time it starts up.  Please consider joining the
@@ -44,9 +45,8 @@ restrict source notrap nomodify noquery
 # Clients from this (example!) subnet have unlimited access, but only if
 # cryptographically authenticated.
 #restrict 192.168.123.0 mask 255.255.255.0 notrust
-restrict 193.191.177.6
-restrict 2001:6a8:2880:a021::6
-restrict 193.191.177.172
+restrict 
+
 
 # If you want to provide time to your local subnet, change the next line.
 # (Again, the address is an example only.)
