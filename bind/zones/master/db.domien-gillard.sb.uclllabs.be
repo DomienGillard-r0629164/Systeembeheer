@@ -1,6 +1,6 @@
 $TTL	300
 @	IN	SOA	ns.domien-gillard.sb.uclllabs.be.	root.domien-gillard.sb.uclllabs.be. (
-				12	; Serial
+				13	; Serial
 				604800	; Refresh
 				86400	; Retry
 				604800	; Expire
@@ -17,4 +17,6 @@ ns				IN	A	193.191.177.146
 
 @				IN	A	193.191.177.146
 www				IN	A	193.191.177.146
+www1				IN	A	193.191.177.146
+www2				IN	A	193.191.177.146
 test				IN	A	193.191.177.254
