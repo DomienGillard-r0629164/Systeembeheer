@@ -14,11 +14,11 @@ zone "domien-gillard.sb.uclllabs.be" {
 };
 zone "pieter-huybrechts.sb.uclllabs.be" {
 	type slave;
-	file "/etc/bind/zones/slaves/db.pieter-huybrechts.sb.uclllabs.be";
+	file "/etc/bind/zones/db.pieter-huybrechts.sb.uclllabs.be";
 	masters { 193.191.177.172; };
 };
 zone "daan-lemmens.sb.uclllabs.be" {
 	type slave;
-	file "/etc/bind/zones/slaves/db.daan-lemmens.sb.uclllabs.be";
+	file "/etc/bind/zones/db.daan-lemmens.sb.uclllabs.be";
 	masters { 193.191.177.142; };
 };
