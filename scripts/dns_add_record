@@ -1,0 +1,36 @@
+#!/bin/bash
+if [ -n "$1" ]; then
+	if [[ $1 = "-t" ]]; then
+		case $2 in
+			A)
+				printf "\n$3	IN	A	$4\n"	>>	/etc/bind/zones/db."$5"
+				ZONE="/etc/bind/zones/db.$5"
+				;;
+			MX)
+				printf "\n@	IN	MX	$3\n"	>>	/etc/bind/zones/db."$5"
+				printf "\n$3	IN	A	$4\n"	>>	/etc/bind/zones/db."$5"
+				ZONE="/etc/bind/zones/db.$5"
+				;;
+			CNAME)
+				MASTER=$(cut -d. -f2- "$4")
+				ZONE="/etc/bind/zones/db.$MASTER"
+				printf "\n$3	IN	CNAME	$4\n"	>>	"$ZONE"
+				;;
+		esac
+	else
+		printf "\n$1	IN	A	$2\n"	>>	/etc/bind/zones/db."$3"
+		ZONE="/etc/bind/zones/db.$3"
+	fi
+	
+	SERNUMBER=$(grep -Po '\d,(?=\s,; Serial)' "$ZONE")
+	SERLINE=$(grep -Po '\s,; Serial' "$ZONE")
+	SERCOMPLETE=$(grep -Po '\d,\s; Serial' "$ZONE")
+	UPDATEDSER=$(("SERNUMBER" + 1))
+	
+	sed -i "s/$SERCOMPLETE/$UPDATEDSER$SERLINE/g" "$ZONE"
+
+	rndc reload
+	systemctl restart bind9
+else
+	printf "Invalid command (arguments)"
+fi
