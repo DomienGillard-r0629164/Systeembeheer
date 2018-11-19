@@ -1,6 +1,6 @@
 $TTL	300
 @	IN	SOA	ns.domien-gillard.sb.uclllabs.be.	root.domien-gillard.sb.uclllabs.be. (
-				17	; Serial
+				19	; Serial
 				604800	; Refresh
 				86400	; Retry
 				604800	; Expire
@@ -26,3 +26,5 @@ secure				IN	A	193.191.177.146
 supersecure			IN	A	193.191.177.146
 
 @				IN	CAA	0 issue "letsencrypt.org"
+
+mx				IN	A	193.191.177.146
