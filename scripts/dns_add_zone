@@ -1,11 +1,11 @@
 #!/bin/bash
 if [ -n "$1" ]; then
 
-	sed "s/changethis/$1/g" /etc/bind/zones/.db.zonetemplate > /etc/bind/zones/master/db."$1".domien-gillard.sb.uclllabs.be
+	sed "s/changethis/$1/g" /etc/bind/zones/.db.zonetemplate > /etc/bind/zones/db."$1".domien-gillard.sb.uclllabs.be
 
 	sed "s/changethis/$1/g" /etc/bind/.add_to_named.conf.local >> /etc/bind/named.conf.local
 
-	printf "\n$1	IN	NS	ns.domien-gillard.sb.uclllabs.be" >> /etc/bind/zones/master/db.domien-gillard.sb.uclllabs.be
+	printf "\n$1	IN	NS	ns.domien-gillard.sb.uclllabs.be" >> /etc/bind/zones/db.domien-gillard.sb.uclllabs.be
 
 	SERNUMBER=$(grep -Po '\d,(?=\s+; Serial)' db.domien-gillard.sb.uclllabs.be)
 	SERLINE=$(grep -Po '\s+; Serial' db.domien-gillard.sb.uclllabs.be)
