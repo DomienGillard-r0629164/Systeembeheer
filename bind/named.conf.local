@@ -22,3 +22,9 @@ zone "daan-lemmens.sb.uclllabs.be" {
 	file "/etc/bind/zones/db.daan-lemmens.sb.uclllabs.be";
 	masters { 193.191.177.142; };
 };
+zone "foobar.domien-gillard.sb.uclllabs.be" {
+	type master;
+	file "/etc/bind/zones/db.foobar.domien-gillard.sb.uclllabs.be";
+	notify yes;
+	allow-transfer { 193.191.176.254; 193.191.177.4; 193.191.177.172; 193.191.177.254; };
+};
