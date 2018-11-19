@@ -1,8 +1,8 @@
-#/bin/bash
+#!/bin/bash
 
 SUBDOMAIN=$1;
 
-if [[ ! $ARG =~ .*\.domien\-gillard\.sb\.uclllabs\.be ]]
+if [[ ! $SUBDOMAIN =~ .*\.domien\-gillard\.sb\.uclllabs\.be ]]
 	then echo "non-existing domain"
 fi;
 
@@ -19,17 +19,17 @@ echo "<VirtualHost *:80>" >> /etc/apache2/sites-available/$SUBDOMAIN_NAME.conf;
 echo "	ServerName $SUBDOMAIN_NAME.domien-gillard.sb.uclllabs.be" >>  /etc/apache2/sites-available/$SUBDOMAIN_NAME.conf;
 echo "	DocumentRoot /var/www/html/$SUBDOMAIN_NAME" >> /etc/apache2/sites-available/$SUBDOMAIN_NAME.conf;
 echo "	CustomLog /var/log/apache2/$SUBDOMAIN_NAME-access.log combined" >> /etc/apache2/sites-available/$SUBDOMAIN_NAME.conf;
-echo "	ErrorLog /var/log/apache2/$SUBDMAIN_NAME-error.log" >> /etc/apache2/sites-available/$SUBDOMAIN_NAME.conf;
+echo "	ErrorLog /var/log/apache2/$SUBDOMAIN_NAME-error.log" >> /etc/apache2/sites-available/$SUBDOMAIN_NAME.conf;
 echo "</VirtualHost>" >> /etc/apache2/sites-available/$SUBDOMAIN_NAME.conf;
 
-echo "$SUBDOMAIN_NAME	IN	A	193.191.177.146" >> /etc/bind/zones/master/db.domien-gillard.sb.uclllabs.be;
+echo "\n$SUBDOMAIN_NAME	IN	A	193.191.177.146" >> /etc/bind/zones/db.domien-gillard.sb.uclllabs.be;
 
-SERNUMBER=$(grep -Po '\d,(?=\s+; Serial)' /etc/bind/zones/master/db.domien-gillard.sb.uclllabs.be)
-SERLINE=$(grep -Po '\s+; Serial' /etc/bind/zones/master/db.domien-gillard.sb.uclllabs.be)
-SERCOMPLETE=$(grep -Po '\d+\s+; Serial' /etc/bind/zones/master/db.domien-gillard.sb.uclllabs.be)
-UPDATEDSER=$(("$SERNUMBER" + 1))
+SERNUMBER=$(grep -Po '\d+(?=\s+; Serial)' /etc/bind/zones/db.domien-gillard.sb.uclllabs.be)
+SERLINE=$(grep -Po '\s+; Serial' /etc/bind/zones/db.domien-gillard.sb.uclllabs.be)
+SERCOMPLETE=$(grep -Po '\d+\s+; Serial' /etc/bind/zones/db.domien-gillard.sb.uclllabs.be)
+UPDATEDSER=$(($SERNUMBER + 1))
 
-sed -i "s/$SERCOMPLETE/$UPDATEDSER$SERLINE/g" /etc/bind/zones/master/db.domien-gillard.sb.uclllabs.be
+sed -i "s/$SERCOMPLETE/$UPDATEDSER$SERLINE/g" /etc/bind/zones/db.domien-gillard.sb.uclllabs.be
 
 rndc reload
 systemctl restart bind9

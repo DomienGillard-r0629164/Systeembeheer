@@ -7,12 +7,14 @@ if [ -n "$1" ]; then
 
 	printf "\n$1	IN	NS	ns.domien-gillard.sb.uclllabs.be" >> /etc/bind/zones/db.domien-gillard.sb.uclllabs.be
 
-	SERNUMBER=$(grep -Po '\d,(?=\s+; Serial)' db.domien-gillard.sb.uclllabs.be)
-	SERLINE=$(grep -Po '\s+; Serial' db.domien-gillard.sb.uclllabs.be)
-	SERCOMPLETE=$(grep -Po '\d+\s+; Serial' db.domien-gillard.sb.uclllabs.be)
+	SERNUMBER=$(grep -Po '\d+(?=\s+; Serial)' /etc/bind/zones/db.domien-gillard.sb.uclllabs.be)
+	SERLINE=$(grep -Po '\s+; Serial' /etc/bind/zones/db.domien-gillard.sb.uclllabs.be)
+	SERCOMPLETE=$(grep -Po '\d+\s+; Serial' /etc/bind/zones/db.domien-gillard.sb.uclllabs.be)
 	UPDATEDSER=$(("$SERNUMBER" + 1))
 
-	sed -i "s/$SERCOMPLETE/$UPDATEDSER$SERLINE/g" db.domien-gillard.sb.uclllabs.be
+	sed -i "s/$SERCOMPLETE/$UPDATEDSER$SERLINE/g" /etc/bind/zones/db.domien-gillard.sb.uclllabs.be
+
+	chmod 644 /etc/bind/zones/db."$1".domien-gillard.sb.uclllabs.be
 
 	rndc reload
 	systemctl restart bind9

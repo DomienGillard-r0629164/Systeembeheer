@@ -21,12 +21,12 @@ if [ -n "$1" ]; then
 		printf "\n$1	IN	A	$2\n"	>>	/etc/bind/zones/db."$3"
 		ZONE="/etc/bind/zones/db.$3"
 	fi
-	
-	SERNUMBER=$(grep -Po '\d,(?=\s,; Serial)' "$ZONE")
-	SERLINE=$(grep -Po '\s,; Serial' "$ZONE")
-	SERCOMPLETE=$(grep -Po '\d,\s; Serial' "$ZONE")
-	UPDATEDSER=$(("SERNUMBER" + 1))
-	
+
+	SERNUMBER=$(grep -Po '\d+(?=\s+; Serial)' "$ZONE")
+	SERLINE=$(grep -Po '\s+; Serial' "$ZONE")
+	SERCOMPLETE=$(grep -Po '\d+\s+; Serial' "$ZONE")
+	UPDATEDSER=$(("$SERNUMBER" + 1))
+
 	sed -i "s/$SERCOMPLETE/$UPDATEDSER$SERLINE/g" "$ZONE"
 
 	rndc reload
