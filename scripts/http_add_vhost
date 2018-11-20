@@ -1,38 +1,38 @@
 #!/bin/bash
 
-SUBDOMAIN=$1;
+SUBDOMAIN=$(grep -Po '.{1,}(?=.domien-gillard.sb.uclllabs.be)' <<< "$1")
 
-if [[ ! $SUBDOMAIN =~ .*\.domien\-gillard\.sb\.uclllabs\.be ]]
-	then echo "non-existing domain"
-fi;
+PART=$(cut -d. -f2 <<< "$1")
 
-SUBDOMAIN_NAME=$(echo $SUBDOMAIN | awk -F '.' '{print $1}');
+SUB=$(cut -d. -f1 <<< "$1")
 
-mkdir /var/www/html/$SUBDOMAIN_NAME
-touch /var/www/html/$SUBDOMAIN_NAME/index.html
+ZONE=$(cut -d. -f2- <<< "$1")
 
-echo "<html><head><title>subdomain</title></head><body><p>subdomain</p></body></html>" >> /var/www/html/$SUBDOMAIN_NAME/index.html;
+echo "$ZONE"
 
-touch /etc/apache2/sites-available/$SUBDOMAIN_NAME.conf
+FIND='^'"$SUB"'\s'
 
-echo "<VirtualHost *:80>" >> /etc/apache2/sites-available/$SUBDOMAIN_NAME.conf;
-echo "	ServerName $SUBDOMAIN_NAME.domien-gillard.sb.uclllabs.be" >>  /etc/apache2/sites-available/$SUBDOMAIN_NAME.conf;
-echo "	DocumentRoot /var/www/html/$SUBDOMAIN_NAME" >> /etc/apache2/sites-available/$SUBDOMAIN_NAME.conf;
-echo "	CustomLog /var/log/apache2/$SUBDOMAIN_NAME-access.log combined" >> /etc/apache2/sites-available/$SUBDOMAIN_NAME.conf;
-echo "	ErrorLog /var/log/apache2/$SUBDOMAIN_NAME-error.log" >> /etc/apache2/sites-available/$SUBDOMAIN_NAME.conf;
-echo "</VirtualHost>" >> /etc/apache2/sites-available/$SUBDOMAIN_NAME.conf;
+echo "$FIND"
 
-echo "\n$SUBDOMAIN_NAME	IN	A	193.191.177.146" >> /etc/bind/zones/db.domien-gillard.sb.uclllabs.be;
+EXISTS=$(grep -P "$FIND" /etc/bind/zones/db."$ZONE" | wc -l)
 
-SERNUMBER=$(grep -Po '\d+(?=\s+; Serial)' /etc/bind/zones/db.domien-gillard.sb.uclllabs.be)
-SERLINE=$(grep -Po '\s+; Serial' /etc/bind/zones/db.domien-gillard.sb.uclllabs.be)
-SERCOMPLETE=$(grep -Po '\d+\s+; Serial' /etc/bind/zones/db.domien-gillard.sb.uclllabs.be)
-UPDATEDSER=$(($SERNUMBER + 1))
+echo "$EXISTS"
 
-sed -i "s/$SERCOMPLETE/$UPDATEDSER$SERLINE/g" /etc/bind/zones/db.domien-gillard.sb.uclllabs.be
+if [ "$EXISTS" -gt 0 ]; then
 
-rndc reload
-systemctl restart bind9
+	mkdir /var/www/html/"$SUBDOMAIN"
+	touch /var/www/html/"$SUBDOMAIN"/index.html
 
-a2ensite $SUBDOMAIN_NAME.conf
-systemctl reload apache2
+	echo "<html><head><title>$SUBDOMAIN</title></head><body><p>$SUBDOMAIN</p></body></html>" >> /var/www/html/"$SUBDOMAIN"/index.html;
+
+	sed "s/changethis/$SUBDOMAIN/g" /etc/apache2/sites-available/.vhost_template.conf > /etc/apache2/sites-available/"$SUBDOMAIN".conf
+
+	a2ensite "$SUBDOMAIN".conf
+	systemctl reload apache2
+
+else
+
+	echo "Something went wrong"
+	exit 1
+
+fi

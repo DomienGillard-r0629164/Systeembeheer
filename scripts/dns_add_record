@@ -7,14 +7,13 @@ if [ -n "$1" ]; then
 				ZONE="/etc/bind/zones/db.$5"
 				;;
 			MX)
-				printf "\n@	IN	MX	$3\n"	>>	/etc/bind/zones/db."$5"
+				printf "\n@	IN	MX	10	$3.$5.\n"	>>	/etc/bind/zones/db."$5"
 				printf "\n$3	IN	A	$4\n"	>>	/etc/bind/zones/db."$5"
 				ZONE="/etc/bind/zones/db.$5"
 				;;
 			CNAME)
-				MASTER=$(cut -d. -f2- "$4")
-				ZONE="/etc/bind/zones/db.$MASTER"
-				printf "\n$3	IN	CNAME	$4\n"	>>	"$ZONE"
+				ZONE="/etc/bind/zones/db.$4"
+				printf "\n$3	IN	CNAME	$4.\n"	>>	"$ZONE"
 				;;
 		esac
 	else
