@@ -28,3 +28,33 @@ zone "foobar.domien-gillard.sb.uclllabs.be" {
 	notify yes;
 	allow-transfer { 193.191.176.254; 193.191.177.4; 193.191.177.172; 193.191.177.254; };
 };
+zone "subzoneoquoo7.domien-gillard.sb.uclllabs.be" {
+	type master;
+	file "/etc/bind/zones/db.subzoneoquoo7.domien-gillard.sb.uclllabs.be";
+	notify yes;
+	allow-transfer { 193.191.176.254; 193.191.177.4; 193.191.177.172; 193.191.177.254; };
+};
+zone "subzoneexeis3.domien-gillard.sb.uclllabs.be" {
+	type master;
+	file "/etc/bind/zones/db.subzoneexeis3.domien-gillard.sb.uclllabs.be";
+	notify yes;
+	allow-transfer { 193.191.176.254; 193.191.177.4; 193.191.177.172; 193.191.177.254; };
+};
+zone "subzonevah3ji.domien-gillard.sb.uclllabs.be" {
+	type master;
+	file "/etc/bind/zones/db.subzonevah3ji.domien-gillard.sb.uclllabs.be";
+	notify yes;
+	allow-transfer { 193.191.176.254; 193.191.177.4; 193.191.177.172; 193.191.177.254; };
+};
+zone "subzoneshah2k.domien-gillard.sb.uclllabs.be" {
+	type master;
+	file "/etc/bind/zones/db.subzoneshah2k.domien-gillard.sb.uclllabs.be";
+	notify yes;
+	allow-transfer { 193.191.176.254; 193.191.177.4; 193.191.177.172; 193.191.177.254; };
+};
+zone "subzoneca5cei.domien-gillard.sb.uclllabs.be" {
+	type master;
+	file "/etc/bind/zones/db.subzoneca5cei.domien-gillard.sb.uclllabs.be";
+	notify yes;
+	allow-transfer { 193.191.176.254; 193.191.177.4; 193.191.177.172; 193.191.177.254; };
+};

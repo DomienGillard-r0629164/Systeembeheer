@@ -1,13 +1,13 @@
 $TTL	300
-@	IN	SOA	ns.changethis.domien-gillard.sb.uclllabs.be	root@changethis.domien-gillard.sb.uclllabs.be. (
-				1	; Serial
+@	IN	SOA	ns.subzoneshah2k.domien-gillard.sb.uclllabs.be.	root@subzoneshah2k.domien-gillard.sb.uclllabs.be. (
+				2	; Serial
 				604800	; Refresh
 				86400	; Retry
 				604800	; Expire
 				300 ); Negative Cache TTL
 ;
 
-@		IN	NS	ns.changethis.domien-gillard.sb.uclllabs.be.
+@		IN	NS	ns.subzoneshah2k.domien-gillard.sb.uclllabs.be.
 @		IN	NS	ns.domien-gillard.sb.uclllabs.be.
 @		IN	NS	ns1.uclllabs.be.
 @		IN	NS	ns2.uclllabs.be.
@@ -16,3 +16,5 @@ $TTL	300
 
 ns		IN	A	193.191.177.146
 @		IN	A	193.191.177.146
+
+iev2ti	IN	A	193.191.177.146
