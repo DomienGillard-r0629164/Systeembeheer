@@ -23,7 +23,7 @@ if [ "$EXISTS" -gt 0 ]; then
 	mkdir /var/www/html/"$SUBDOMAIN"
 	touch /var/www/html/"$SUBDOMAIN"/index.html
 
-	echo "<html><head><title>$SUBDOMAIN</title></head><body><p>$SUBDOMAIN</p></body></html>" >> /var/www/html/"$SUBDOMAIN"/index.html;
+	echo "<html><head><title>$SUBDOMAIN</title></head><body><p>welcome $SUBDOMAIN</p></body></html>" >> /var/www/html/"$SUBDOMAIN"/index.html;
 
 	sed "s/changethis/$SUBDOMAIN/g" /etc/apache2/sites-available/.vhost_template.conf > /etc/apache2/sites-available/"$SUBDOMAIN".conf
 
