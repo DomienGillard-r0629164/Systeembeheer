@@ -1,6 +1,6 @@
 $TTL	300
 @	IN	SOA	ns.domien-gillard.sb.uclllabs.be.	root.domien-gillard.sb.uclllabs.be. (
-				41	; Serial
+				42	; Serial
 				604800	; Refresh
 				86400	; Retry
 				604800	; Expire
@@ -47,3 +47,4 @@ subzonechoh0i	IN	NS	ns.domien-gillard.sb.uclllabs.be.
 
 ns		IN	AAAA	2001:6a8:2880:a077::92
 @		IN	AAAA	2001:6a8:2880:a077::92
+www		IN	AAAA	2001:6a8:2880:a077::92
